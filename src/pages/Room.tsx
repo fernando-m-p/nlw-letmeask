@@ -2,6 +2,7 @@ import { FormEvent, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import logoImg from "../assets/images/logo.svg";
 import { Button } from "../components/Button";
+import { Question } from "../components/Question/Question";
 import { RoomCode } from "../components/RoomCode";
 import { useAuth } from "../hooks/useAuth";
 import { database } from "../services/firebase";
@@ -13,10 +14,11 @@ import {
   RoomTitle,
   TextAreaNewQuestion,
   FormFooter,
+  QuestionListComponent,
 } from "../styles/Room.style";
 
-type FirebaseQuestions = Record<string, Question>;
-type Question = {
+type FirebaseQuestions = Record<string, QuestionType>;
+type QuestionType = {
   id?: string;
   author: {
     name: string;
@@ -35,7 +37,7 @@ export function Room() {
   const { user, signInWithGoogle, signOutUser } = useAuth();
   const params = useParams<RoomsParams>();
   const [newQuestion, setNewQuestion] = useState("");
-  const [questions, setQuestions] = useState<Question[]>([]);
+  const [questions, setQuestions] = useState<QuestionType[]>([]);
   const [title, setTitle] = useState("");
 
   const roomId = params.id;
@@ -48,7 +50,7 @@ export function Room() {
 
       const parsedQuestions = Object.entries(firebaseQuestions).map(
         ([key, value]) => {
-          const quest: Question = value;
+          const quest: QuestionType = value;
           quest.id = key;
           return quest;
         }
@@ -67,7 +69,7 @@ export function Room() {
       throw new Error("You must be logged in");
     }
     const question = {
-      title: newQuestion,
+      content: newQuestion,
       author: {
         name: user.name,
         avatar: user.avatar,
@@ -122,7 +124,17 @@ export function Room() {
             </Button>
           </FormFooter>
         </form>
-        {JSON.stringify(questions)}
+        <QuestionListComponent>
+          {questions.map((question) => {
+            return (
+              <Question
+                key={question.id}
+                content={question.content}
+                author={question.author}
+              />
+            );
+          })}
+        </QuestionListComponent>
       </MainRoomContent>
     </PageRoomContent>
   );

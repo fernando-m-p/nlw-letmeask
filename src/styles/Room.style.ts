@@ -102,3 +102,7 @@ export const FormFooter = styled.div`
     }
   }
 `;
+
+export const QuestionListComponent = styled.div`
+  margin-top: 32px;
+`;
