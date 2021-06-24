@@ -1,22 +1,35 @@
 import { Route, BrowserRouter, Switch } from "react-router-dom";
-
+import { DefaultTheme, ThemeProvider } from "styled-components";
 import { Home } from "./pages/Home";
 import { NewRoom } from "./pages/NewRoom";
 import { Room } from "./pages/Room";
+import light from "./styles/themes/light";
+import dark from "./styles/themes/dark";
 
 import { AuthContextProvider } from "./contexts/AuthContext";
+import ThemeSwitch from "./components/ThemeSwitch";
+import usePersistState from "./hooks/usePersistState";
 
 function App() {
+  const [theme, setTheme] = usePersistState<DefaultTheme>("theme", light);
+
+  const toogleTheme = () => {
+    setTheme(theme.title === "light" ? dark : light);
+  };
+
   return (
-    <BrowserRouter>
-      <AuthContextProvider>
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/rooms/new" exact component={NewRoom} />
-          <Route path="/rooms/:id" component={Room} />
-        </Switch>
-      </AuthContextProvider>
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <ThemeSwitch toogleTheme={toogleTheme} />
+      <BrowserRouter>
+        <AuthContextProvider>
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/rooms/new" exact component={NewRoom} />
+            <Route path="/rooms/:id" component={Room} />
+          </Switch>
+        </AuthContextProvider>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

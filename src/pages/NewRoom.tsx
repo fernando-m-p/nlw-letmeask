@@ -7,7 +7,8 @@ import logoImg from "../assets/images/logo.svg";
 import { Button } from "../components/Button";
 import { useAuth } from "../hooks/useAuth";
 
-import "../styles/auth.scss";
+import { PageAuth, Aside, Main, MainContent } from "../styles/Auth.style";
+
 import { database } from "../services/firebase";
 
 export function NewRoom() {
@@ -33,17 +34,17 @@ export function NewRoom() {
   const { user } = useAuth();
 
   return (
-    <div id="page-auth">
-      <aside>
+    <PageAuth>
+      <Aside>
         <img
           src={illustrationImg}
           alt="Ilustração simbolizando perguntas e respostas"
         ></img>
         <strong>Crie salas de Q&amp;A ao-vivo</strong>
         <p>Tire as dúvidas da sua audiência em tempo-real</p>
-      </aside>
-      <main>
-        <div className="main-content">
+      </Aside>
+      <Main>
+        <MainContent>
           <img src={logoImg} alt="letmeask"></img>
           <h1>{user?.name}</h1>
           <h2>Criar uma nova sala</h2>
@@ -59,8 +60,8 @@ export function NewRoom() {
           <p>
             Quer entrar em uma sala existente? <Link to="/">clique aqui </Link>
           </p>
-        </div>
-      </main>
-    </div>
+        </MainContent>
+      </Main>
+    </PageAuth>
   );
 }

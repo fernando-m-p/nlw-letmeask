@@ -6,7 +6,14 @@ import { RoomCode } from "../components/RoomCode";
 import { useAuth } from "../hooks/useAuth";
 import { database } from "../services/firebase";
 
-import "../styles/room.scss";
+import {
+  PageRoomContent,
+  HeaderRoomContent,
+  MainRoomContent,
+  RoomTitle,
+  TextAreaNewQuestion,
+  FormFooter,
+} from "../styles/Room.style";
 
 type FirebaseQuestions = Record<string, Question>;
 type Question = {
@@ -77,8 +84,8 @@ export function Room() {
   }
 
   return (
-    <div id="page-room">
-      <header>
+    <PageRoomContent>
+      <HeaderRoomContent>
         <div className="content">
           <img src={logoImg} alt="letmeask" />
           <div>
@@ -86,19 +93,19 @@ export function Room() {
             {!user || <Button onClick={signOutUser}>Sair</Button>}
           </div>
         </div>
-      </header>
-      <main className="content">
-        <div className="room-title">
+      </HeaderRoomContent>
+      <MainRoomContent>
+        <RoomTitle>
           <h1>Sala {title}</h1>
           {questions.length > 0 && <span>{questions.length} pergunta(s)</span>}
-        </div>
+        </RoomTitle>
         <form action="" onSubmit={handleSendQuestion}>
-          <textarea
+          <TextAreaNewQuestion
             placeholder="O que você quer perguntar?"
             onChange={(event) => setNewQuestion(event.target.value)}
             value={newQuestion}
-          ></textarea>
-          <div className="form-footer">
+          />
+          <FormFooter>
             {user ? (
               <div className="user-info">
                 <img src={user.avatar} alt={user.name} />
@@ -113,10 +120,10 @@ export function Room() {
             <Button type="submit" disabled={!user}>
               Enviar pergunta
             </Button>
-          </div>
+          </FormFooter>
         </form>
         {JSON.stringify(questions)}
-      </main>
-    </div>
+      </MainRoomContent>
+    </PageRoomContent>
   );
 }
