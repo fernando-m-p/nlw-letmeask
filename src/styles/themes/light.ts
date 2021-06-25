@@ -10,6 +10,7 @@ const light = {
     shadow: "#d3d3ed",
     buttonlink: "#835afe",
     linkprimary: "#e559f9",
+    isHighlighted: "#f4f0ff",
   },
 };
 

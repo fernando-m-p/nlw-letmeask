@@ -13,6 +13,7 @@ declare module "styled-components" {
       shadow: string;
       buttonlink: string;
       linkprimary: string;
+      isHighlighted: string;
     };
   }
 }

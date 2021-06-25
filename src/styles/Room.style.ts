@@ -1,9 +1,13 @@
 import styled from "styled-components";
 
-export const PageRoomContent = styled.div``;
+export const PageRoomContent = styled.div`
+  background: ${(props) => props.theme.colors.background};
+  min-height: 100vh;
+`;
 export const HeaderRoomContent = styled.header`
+  background: ${(props) => props.theme.colors.background};
   padding: 24px;
-  border-bottom: 1px solid #e2e2e2;
+  border-bottom: 1px solid ${(props) => props.theme.colors.shadow};
 
   .content {
     max-width: 1120px;
@@ -14,6 +18,7 @@ export const HeaderRoomContent = styled.header`
 
     > img {
       max-height: 45px;
+      filter: invert(${(props) => (props.theme.title === "light" ? 0 : 1)});
     }
     > div {
       display: flex;
@@ -37,15 +42,15 @@ export const RoomTitle = styled.div`
   h1 {
     font-family: "Poppins", sans-serif;
     font-size: 24px;
-    color: #29292e;
+    color: ${(props) => props.theme.colors.text};
   }
 
   span {
     margin-left: 16px;
-    background: #e559f9;
+    background: ${(props) => props.theme.colors.purple};
     border-radius: 9999px;
     padding: 8px 16px;
-    color: #fff;
+    color: ${(props) => props.theme.colors.textWhite};
     font-weight: 500;
     font-size: 14px;
   }
@@ -80,7 +85,7 @@ export const FormFooter = styled.div`
 
     span {
       margin-left: 8px;
-      color: #29292e;
+      color: ${(props) => props.theme.colors.text};
       font-weight: 500;
       font-size: 14px;
     }
@@ -88,13 +93,13 @@ export const FormFooter = styled.div`
 
   > span {
     font-size: 14px;
-    color: #737380;
+    color: ${(props) => props.theme.colors.text};
     font-weight: 500;
 
     button {
       background: transparent;
       border: 0;
-      color: #835afd;
+      color: ${(props) => props.theme.colors.linkprimary};
       text-decoration: underline;
       font-size: 14px;
       font-weight: 500;

@@ -10,7 +10,7 @@ export const Aside = styled.aside`
   flex: 7;
 
   background: ${(props) => props.theme.colors.purple};
-  color: #fff;
+  color: ${(props) => props.theme.colors.background};
 
   display: flex;
   flex-direction: column;
@@ -32,7 +32,7 @@ export const Aside = styled.aside`
     font-size: 24px;
     line-height: 32px;
     margin-top: 16px;
-    color: #f8f8f8;
+    color: ${(props) => props.theme.colors.text};
   }
 `;
 
@@ -54,8 +54,10 @@ export const MainContent = styled.div`
   max-width: 320px;
   align-items: stretch;
   text-align: center;
+  color: ${(props) => props.theme.colors.text};
   > img {
     align-self: center;
+    filter: invert(${(props) => (props.theme.title === "light" ? 0 : 1)});
   }
 
   h2 {
@@ -99,8 +101,8 @@ export const CreateRoom = styled.button`
   height: 50px;
   border-radius: 8px;
   font-weight: 500;
-  background-color: #ea4335;
-  color: #ffffff;
+  background-color: ${(props) => props.theme.colors.red};
+  color: ${(props) => props.theme.colors.textWhite};
 
   display: flex;
   justify-content: center;

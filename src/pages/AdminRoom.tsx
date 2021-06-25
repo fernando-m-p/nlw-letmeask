@@ -2,6 +2,8 @@ import { useHistory, useParams } from "react-router-dom";
 
 import logoImg from "../assets/images/logo.svg";
 import deleteImg from "../assets/images/delete.svg";
+import checkImg from "../assets/images/check.svg";
+import answerImg from "../assets/images/answer.svg";
 
 import { Button } from "../components/Button";
 import { Question } from "../components/Question/Question";
@@ -18,6 +20,7 @@ import {
   QuestionListComponent,
 } from "../styles/Room.style";
 import { database } from "../services/firebase";
+import { ButtonsQuestionStyled } from "../components/Question/Question.style";
 
 type RoomsParams = {
   id: string;
@@ -43,6 +46,24 @@ export function AdminRoom() {
       await database.ref(`rooms/${roomId}/questions/${questionId}`).remove();
     }
   }
+  async function handleCheckQuestionAnswered(
+    questionId: string,
+    isAnswered: boolean
+  ) {
+    await database
+      .ref(`rooms/${roomId}/questions/${questionId}`)
+      .update({ isAnswered });
+  }
+
+  async function handleHighLightQuestion(
+    questionId: string,
+    isHighlighted: boolean
+  ) {
+    await database
+      .ref(`rooms/${roomId}/questions/${questionId}`)
+      .update({ isHighlighted });
+  }
+
   return (
     <PageRoomContent>
       <HeaderRoomContent>
@@ -58,7 +79,16 @@ export function AdminRoom() {
             >
               Encerrar Sala
             </Button>
-            {user && <Button onClick={signOutUser}>Sair</Button>}
+            {user && (
+              <Button
+                onClick={() => {
+                  signOutUser();
+                  history.push("/");
+                }}
+              >
+                Sair
+              </Button>
+            )}
           </div>
         </div>
       </HeaderRoomContent>
@@ -75,15 +105,43 @@ export function AdminRoom() {
                 key={question.id}
                 content={question.content}
                 author={question.author}
+                isHighlighted={question.isHighlighted}
+                isAnswered={question.isAnswered}
               >
-                <button
+                <ButtonsQuestionStyled
+                  type="button"
+                  onClick={() => {
+                    if (question.id)
+                      handleCheckQuestionAnswered(
+                        question.id,
+                        !question.isAnswered
+                      );
+                  }}
+                >
+                  <img src={checkImg} alt="Marcar pergunta como respondida." />
+                </ButtonsQuestionStyled>
+                {question.isAnswered || (
+                  <ButtonsQuestionStyled
+                    type="button"
+                    onClick={() => {
+                      if (question.id)
+                        handleHighLightQuestion(
+                          question.id,
+                          !question.isHighlighted
+                        );
+                    }}
+                  >
+                    <img src={answerImg} alt="Dar destaque à pergunta" />
+                  </ButtonsQuestionStyled>
+                )}
+                <ButtonsQuestionStyled
                   type="button"
                   onClick={() => {
                     if (question.id) handleDeleteQuestion(question.id);
                   }}
                 >
                   <img src={deleteImg} alt="Remover pergunta" />
-                </button>
+                </ButtonsQuestionStyled>
               </Question>
             );
           })}

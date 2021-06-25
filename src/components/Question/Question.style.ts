@@ -1,27 +1,4 @@
 import styled from "styled-components";
-
-export const QuestionStyled = styled.div`
-  background: #fefefe;
-  border-radius: 8px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-  padding: 24px;
-
-  & + & {
-    margin-top: 8px;
-  }
-
-  p {
-    color: #29292e;
-  }
-
-  footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 24px;
-  }
-`;
-
 export const UserInfoStyled = styled.div`
   display: flex;
   align-items: center;
@@ -39,6 +16,46 @@ export const UserInfoStyled = styled.div`
   }
 `;
 
+export const QuestionStyled = styled.div`
+  background: #fefefe;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  padding: 24px;
+
+  &.highlighted {
+    background: ${(props) => props.theme.colors.isHighlighted};
+    border: 1px solid ${(props) => props.theme.colors.purple};
+
+    footer ${UserInfoStyled} span {
+      color: #29292e;
+    }
+  }
+
+  &.answered {
+    background: ${(props) => props.theme.colors.lightGray};
+  }
+
+  & + & {
+    margin-top: 8px;
+  }
+
+  p {
+    color: #29292e;
+  }
+
+  footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+  }
+`;
+
+export const ButtonsDivQuestionStyled = styled.div`
+  display: flex;
+  gap: 16px;
+`;
+
 export const ButtonsQuestionStyled = styled.button`
   border: 0;
   background: transparent;
@@ -52,10 +69,10 @@ export const ButtonsQuestionStyled = styled.button`
     transition: filter 0.2s;
 
     &.liked {
-      color: #835afd;
+      color: ${(props) => props.theme.colors.purple};
 
       svg path {
-        stroke: #835afd;
+        stroke: ${(props) => props.theme.colors.purple};
       }
     }
 

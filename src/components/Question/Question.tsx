@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import {
-  ButtonsQuestionStyled,
+  ButtonsDivQuestionStyled,
   QuestionStyled,
   UserInfoStyled,
 } from "./Question.style";
@@ -12,18 +12,30 @@ type QuestionProps = {
     avatar: string;
   };
   children?: ReactNode;
+  isAnswered?: boolean;
+  isHighlighted?: boolean;
 };
 
-export function Question({ content, author, children }: QuestionProps) {
+export function Question({
+  content,
+  author,
+  children,
+  isAnswered = false,
+  isHighlighted = false,
+}: QuestionProps) {
   return (
-    <QuestionStyled>
+    <QuestionStyled
+      className={`${isAnswered ? " answered " : ""} ${
+        isHighlighted && !isAnswered ? " highlighted " : ""
+      }`}
+    >
       <p>{content}</p>
       <footer>
         <UserInfoStyled>
           <img src={author.avatar} alt={author.name} />
           <span>{author.name}</span>
         </UserInfoStyled>
-        <ButtonsQuestionStyled>{children}</ButtonsQuestionStyled>
+        <ButtonsDivQuestionStyled>{children}</ButtonsDivQuestionStyled>
       </footer>
     </QuestionStyled>
   );

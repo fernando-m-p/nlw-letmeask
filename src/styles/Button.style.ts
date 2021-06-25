@@ -4,8 +4,8 @@ export const ButtonStyled = styled.button`
   height: 50px;
   border-radius: 8px;
   font-weight: 500;
-  background-color: #835afd;
-  color: #ffffff;
+  background-color: ${(props) => props.theme.colors.purple};
+  color: ${(props) => props.theme.colors.textWhite};
   padding: 0 32px;
 
   display: flex;
@@ -18,9 +18,9 @@ export const ButtonStyled = styled.button`
   transition: filter 0.2s;
 
   &.outlined {
-    background: #ffffff;
-    border: 1px solid #835afd;
-    color: #835afd;
+    background: ${(props) => props.theme.colors.background};
+    border: 1px solid ${(props) => props.theme.colors.purple};
+    color: ${(props) => props.theme.colors.text};
   }
 
   img {
@@ -42,14 +42,16 @@ export const CodeRoomButtonStyled = styled.button`
   border-radius: 8px;
   overflow: hidden;
 
-  background: #fff;
-  border: 1px solid #835afd;
+  background: ${(props) => props.theme.colors.background};
+  border: 1px solid ${(props) => props.theme.colors.purple};
+  color: ${(props) => props.theme.colors.text};
   cursor: pointer;
 
   display: flex;
 
   div {
-    background: #835afd;
+    background: ${(props) => props.theme.colors.purple};
+
     padding: 0 12px;
     display: flex;
     justify-content: center;
