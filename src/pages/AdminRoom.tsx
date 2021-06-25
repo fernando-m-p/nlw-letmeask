@@ -50,7 +50,12 @@ export function AdminRoom() {
           <img src={logoImg} alt="letmeask" />
           <div>
             <RoomCode code={roomId} />
-            <Button isOutlined onClick={() => {}}>
+            <Button
+              isOutlined
+              onClick={() => {
+                handleEndRoom();
+              }}
+            >
               Encerrar Sala
             </Button>
             {user && <Button onClick={signOutUser}>Sair</Button>}
