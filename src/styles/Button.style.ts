@@ -17,6 +17,12 @@ export const ButtonStyled = styled.button`
 
   transition: filter 0.2s;
 
+  &.outlined {
+    background: #ffffff;
+    border: 1px solid #835afd;
+    color: #835afd;
+  }
+
   img {
     margin-right: 8px;
   }

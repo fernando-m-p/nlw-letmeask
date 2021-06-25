@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import {
   ButtonsQuestionStyled,
   QuestionStyled,
@@ -10,9 +11,10 @@ type QuestionProps = {
     name: string;
     avatar: string;
   };
+  children?: ReactNode;
 };
 
-export function Question({ content, author }: QuestionProps) {
+export function Question({ content, author, children }: QuestionProps) {
   return (
     <QuestionStyled>
       <p>{content}</p>
@@ -21,7 +23,7 @@ export function Question({ content, author }: QuestionProps) {
           <img src={author.avatar} alt={author.name} />
           <span>{author.name}</span>
         </UserInfoStyled>
-        <ButtonsQuestionStyled />
+        <ButtonsQuestionStyled>{children}</ButtonsQuestionStyled>
       </footer>
     </QuestionStyled>
   );
