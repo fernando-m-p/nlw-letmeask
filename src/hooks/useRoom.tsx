@@ -32,6 +32,7 @@ export function useRoom({ roomId }: useRoomPros) {
   const { user } = useAuth();
   const [questions, setQuestions] = useState<QuestionType[]>([]);
   const [title, setTitle] = useState("");
+  const [authorId, setAuthorId] = useState();
   const history = useHistory();
 
   useEffect(() => {
@@ -39,6 +40,7 @@ export function useRoom({ roomId }: useRoomPros) {
     roomRef.on("value", (room) => {
       if (room.exists()) {
         const databaseRoom = room.val();
+        setAuthorId(databaseRoom.authorId);
         const firebaseQuestions: FirebaseQuestions =
           databaseRoom.questions ?? {};
 
@@ -80,5 +82,5 @@ export function useRoom({ roomId }: useRoomPros) {
     });
   }, [roomId, history, user?.id]);
 
-  return { questions, title };
+  return { questions, title, authorId };
 }

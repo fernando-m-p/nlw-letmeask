@@ -21,6 +21,7 @@ import {
 } from "../styles/Room.style";
 import { database } from "../services/firebase";
 import { ButtonsQuestionStyled } from "../components/Question/Question.style";
+import { useEffect } from "react";
 
 type RoomsParams = {
   id: string;
@@ -31,7 +32,13 @@ export function AdminRoom() {
   const params = useParams<RoomsParams>();
   const history = useHistory();
   const roomId = params.id;
-  const { questions, title } = useRoom({ roomId });
+  const { questions, title, authorId } = useRoom({ roomId });
+
+  useEffect(() => {
+    if (!user || user.id !== authorId) {
+      history.push(`/rooms/${roomId}`);
+    }
+  }, [authorId, history, roomId, user]);
 
   async function handleEndRoom() {
     await database.ref(`rooms/${roomId}`).update({
