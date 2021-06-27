@@ -14,7 +14,7 @@ import {
 } from "../styles/Room.style";
 import { FormEvent, useEffect, useState } from "react";
 import { Room } from "../components/Room/Room";
-import { MainContent, Separator } from "../styles/Auth.style";
+import { MainContent } from "../styles/Auth.style";
 import { useHistory } from "react-router-dom";
 
 type RoomType = {
@@ -96,7 +96,7 @@ export function ListRooms() {
     return () => {
       roomRef.off("value");
     };
-  }, [user]);
+  }, [user, history]);
 
   return (
     <PageRoomContent>
