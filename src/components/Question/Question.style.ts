@@ -22,6 +22,11 @@ export const QuestionStyled = styled.div`
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   padding: 24px;
 
+  div.content-likes {
+    display: flex;
+    justify-content: space-between;
+  }
+
   &.highlighted {
     background: ${(props) => props.theme.colors.isHighlighted};
     border: 1px solid ${(props) => props.theme.colors.purple};

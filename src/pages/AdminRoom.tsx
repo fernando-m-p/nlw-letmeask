@@ -107,6 +107,7 @@ export function AdminRoom() {
                 author={question.author}
                 isHighlighted={question.isHighlighted}
                 isAnswered={question.isAnswered}
+                likeCount={question.likeCount}
               >
                 <ButtonsQuestionStyled
                   type="button"

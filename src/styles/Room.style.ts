@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Separator } from "./Auth.style";
 
 export const PageRoomContent = styled.div`
   background: ${(props) => props.theme.colors.background};
@@ -32,6 +33,15 @@ export const HeaderRoomContent = styled.header`
 export const MainRoomContent = styled.main`
   max-width: 800px;
   margin: 0 auto;
+
+  > footer {
+    display: flex;
+    justify-content: space-between;
+
+    ${Separator} {
+      color: ${(props) => props.theme.colors.text};
+    }
+  }
 `;
 
 export const RoomTitle = styled.div`
@@ -109,5 +119,9 @@ export const FormFooter = styled.div`
 `;
 
 export const QuestionListComponent = styled.div`
+  margin-top: 32px;
+`;
+
+export const RoomListComponent = styled.div`
   margin-top: 32px;
 `;

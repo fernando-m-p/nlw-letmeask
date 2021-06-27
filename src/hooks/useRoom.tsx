@@ -42,8 +42,8 @@ export function useRoom({ roomId }: useRoomPros) {
         const firebaseQuestions: FirebaseQuestions =
           databaseRoom.questions ?? {};
 
-        const parsedQuestions = Object.entries(firebaseQuestions).map(
-          ([key, value]) => {
+        const parsedQuestions = Object.entries(firebaseQuestions)
+          .map(([key, value]) => {
             const quest: QuestionType = value;
             quest.id = key;
             quest.likeCount = Object.values(value.likes ?? {}).length;
@@ -51,8 +51,21 @@ export function useRoom({ roomId }: useRoomPros) {
               ([key, like]) => like.authorId === user?.id
             )?.[0];
             return quest;
-          }
-        );
+          })
+          .sort((a: QuestionType, b: QuestionType) => {
+            if (a.isAnswered) {
+              return 1;
+            } else if (b.isAnswered) {
+              return -1;
+            }
+            if (a.isHighlighted) {
+              return -1;
+            } else if (b.isHighlighted) {
+              return 1;
+            }
+
+            return b.likeCount - a.likeCount;
+          });
 
         setTitle(databaseRoom.title);
         setQuestions(parsedQuestions);
